@@ -1,27 +1,27 @@
 package com.sqli.nespresso.gossips;
 
-public class Person {
+public abstract class Person {
 
-	public Person(String name) {
+	protected Person(String name) {
 		this.name = name;
 	}
-	
+
 	private final String name;
-	private String salutations;
-	
 	private Person next;
-	
+
+
 	public String getName() {
 		return name;
 	}
 	
-	public String getSalutations() {
-		return salutations;
-	}
+	public abstract void say (final String salutation);
 	
-	public void setSalutations(String salutations) {
-		this.salutations = salutations;
-	}
+	public abstract String whenAsked ();
+	
+	public abstract boolean hasSomethingToSay ();
+	
+	public abstract void sayTo (final Person other);
+
 
 	public Person getNext() {
 		return next;
@@ -31,4 +31,10 @@ public class Person {
 		this.next = next;
 	}
 	
+	public boolean hasNext ()
+	{
+		return next != null;
+	}
+	
+
 }

@@ -1,7 +1,5 @@
 package com.sqli.nespresso.gossips;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 public class GossipsShould {
@@ -81,7 +79,7 @@ public class GossipsShould {
 
 	}
 
-	@Test
+	/*@Test
 	public void alwaysBeListenedByAnAgent() {
 
 		Gossips gossips = new Gossips("Mr White", "Mr Grey", "Agent Pink",
