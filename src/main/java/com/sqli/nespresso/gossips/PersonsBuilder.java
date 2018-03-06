@@ -17,11 +17,20 @@ public final class PersonsBuilder {
 		return this;
 	}
 	
+	private Person buildPerson (final Person person)
+	{
+		person.setNext(next);
+		return person;
+	}
 	
+	public Doctor buildDoctor ()
+	{
+		return (Doctor)buildPerson(new Doctor(name));
+	}
 	
 	public Mister buildMister ()
 	{
-		return null;
+		return (Mister)buildPerson(new Mister(name));
 	}
 	
 }
