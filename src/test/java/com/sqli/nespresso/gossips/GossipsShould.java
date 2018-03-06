@@ -1,5 +1,8 @@
 package com.sqli.nespresso.gossips;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 public class GossipsShould {
@@ -52,7 +55,7 @@ public class GossipsShould {
 
 	}
 
-	/*@Test
+	@Test
 	public void beRememberedByDoctors() {
 
 		Gossips gossips = new Gossips("Mr White", "Mr Black", "Dr Brown",

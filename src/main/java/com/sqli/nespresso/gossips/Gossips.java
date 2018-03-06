@@ -1,3 +1,5 @@
+package com.sqli.nespresso.gossips;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
