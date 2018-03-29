@@ -1,5 +1,6 @@
 package com.sqli.nespresso.gossips;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class GossipsShould {
 
 	}
 
-	/*@Test
+	@Test
 	public void beRetainedIfRecipientHasAlreadyAGossip() {
 
 		Gossips gossips = new Gossips("Mr White", "Mr Black", "Mr Blue")
@@ -81,7 +82,7 @@ public class GossipsShould {
 
 	}
 
-	/*@Test
+	@Test
 	public void alwaysBeListenedByAnAgent() {
 
 		Gossips gossips = new Gossips("Mr White", "Mr Grey", "Agent Pink",
@@ -207,6 +208,6 @@ public class GossipsShould {
 		assertThat(gossips.ask("White")).isEqualTo("");
 		assertThat(gossips.ask("Rose")).isEqualTo("olleH");
 		assertThat(gossips.ask("Black")).isEqualTo("");
-	}*/
+	}
 	
 }

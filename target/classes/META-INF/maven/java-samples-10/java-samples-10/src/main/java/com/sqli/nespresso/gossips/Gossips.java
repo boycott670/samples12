@@ -1,45 +1,11 @@
 package com.sqli.nespresso.gossips;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public final class Gossips
 {
-	private static enum GossipType
-	{
-		MISTER ("Mr", Mister.class);
-		
-		private final String repr;
-		private final Class<? extends Gossip> type;
-		
-		private GossipType(final String repr, final Class<? extends Gossip> type)
-		{
-			this.repr = repr;
-			this.type = type;
-		}
-		
-		public Class<? extends Gossip> getType()
-		{
-			return type;
-		}
-
-
-
-		public static GossipType fromRepr (final String repr)
-		{
-			for (final GossipType gossipType : values())
-			{
-				if (gossipType.repr.equals(repr))
-				{
-					return gossipType;
-				}
-			}
-			
-			throw new IllegalStateException();
-		}
-	}
-	
 	private static enum ActionType
 	{
 		FROM,
@@ -47,6 +13,7 @@ public final class Gossips
 	}
 	
 	private final Map<String, Gossip> gossips = new LinkedHashMap<>();
+	private final GossipFactory gossipFactory = new GossipFactory();
 	
 	private ActionType lastAction;
 	private String lastGossip;
@@ -58,16 +25,7 @@ public final class Gossips
 		{
 			final String[] tokens = gossip.split(" ");
 			
-			try
-			{
-				final Gossip parsedGossip = GossipType.fromRepr(tokens[0]).getType().getDeclaredConstructor(String.class).newInstance(tokens[1]);
-				
-				this.gossips.put(tokens[1], parsedGossip);
-			}
-			catch (final NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException exception)
-			{
-				throw new IllegalStateException();
-			}
+			this.gossips.put(tokens[1], gossipFactory.get(tokens[0], tokens[1]));
 		}
 	}
 	
@@ -90,6 +48,7 @@ public final class Gossips
 		if (lastAction == ActionType.FROM)
 		{
 			gossips.get(lastGossip).setNext(gossips.get(gossip));
+			gossips.get(gossip).setPrevious(gossips.get(lastGossip));
 		}
 		else
 		{
@@ -106,6 +65,17 @@ public final class Gossips
 	
 	public void spread ()
 	{
-		
+		for (final Entry<?, ? extends Gossip> entry : gossips.entrySet())
+		{
+			if (entry.getValue().spread())
+			{
+				if (entry.getValue().getNext().continueSpreading())
+				{
+					continue;
+				}
+				
+				break;
+			}
+		}
 	}
 }

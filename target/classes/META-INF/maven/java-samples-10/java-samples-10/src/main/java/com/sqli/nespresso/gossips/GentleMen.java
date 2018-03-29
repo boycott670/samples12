@@ -1,11 +1,10 @@
 package com.sqli.nespresso.gossips;
 
-public class Mister extends Gossip
-{
+public class GentleMen extends Gossip {
 	
 	private String message = "";
 	
-	public Mister(String name) {
+	public GentleMen(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
@@ -22,14 +21,19 @@ public class Mister extends Gossip
 
 	@Override
 	public boolean spread() {
-		if (super.spread() && !message.isEmpty())
+		
+		if (getPrevious() != null && !message.isEmpty())
 		{
-			getNext().say(message);
+			getPrevious().say(new StringBuilder(message).reverse().toString());
 			message = "";
+			
 			return true;
 		}
 		
 		return false;
+		
 	}
 	
+	
+
 }

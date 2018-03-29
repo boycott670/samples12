@@ -4,6 +4,7 @@ public abstract class Gossip
 {
 	private final String name;
 	private Gossip next;
+	private Gossip previous;
 	
 	public abstract void say (final String message);
 	public abstract String ask ();
@@ -26,5 +27,23 @@ public abstract class Gossip
 	public void setNext(final Gossip next)
 	{
 		this.next = next;
+	}
+	
+	public Gossip getPrevious() {
+		return previous;
+	}
+	
+	public void setPrevious(Gossip previous) {
+		this.previous = previous;
+	}
+	
+	public boolean spread ()
+	{
+		return getNext() != null;
+	}
+	
+	public boolean continueSpreading ()
+	{
+		return false;
 	}
 }
